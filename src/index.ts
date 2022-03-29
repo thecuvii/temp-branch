@@ -1,6 +1,6 @@
 import { execa, execaCommand } from 'execa'
 
-const branches = {
+const branches: Record<string, string> = {
   t: 'test',
   test: 'test',
   r: 'release',
@@ -10,7 +10,8 @@ const branches = {
 };
 
 (async() => {
-  let targetBranch = process.argv.slice(2)[0]
+  const input = process.argv.slice(2)[0] as string
+  let targetBranch = branches[input]
 
   if (!targetBranch) {
     console.error('目标分支匹配失败，仅允许 \n', JSON.stringify(branches, null, 2))
