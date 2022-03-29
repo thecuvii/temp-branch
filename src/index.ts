@@ -22,7 +22,10 @@ const branches: Record<string, string> = {
     const { stdout: currentBranch } = await execaCommand('git branch --show-current')
 
     if (currentBranch) targetBranch = `temp-${currentBranch}-${targetBranch}-${today()}`
-    if (targetBranch) await execa('git', ['checkout', '-b', targetBranch])
+    if (targetBranch) {
+      await execa('git', ['checkout', '-b', targetBranch])
+      await execa('git', ['merge', `origin/${targetBranch}`])
+    }
   }
   catch (e: unknown) {
     const { message } = e as any
