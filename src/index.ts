@@ -1,4 +1,4 @@
-import { execa, execaCommand } from 'execa'
+import { execaCommand } from 'execa'
 
 const branches: Record<string, string> = {
   t: 'test',
@@ -24,8 +24,8 @@ const branches: Record<string, string> = {
 
     if (currentBranch) targetBranch = `temp-${currentBranch}-${targetBranch}-${today()}`
     if (targetBranch) {
-      await execa('git', ['checkout', '-b', targetBranch])
-      await execa('git', ['merge', `origin/${rawBranch}`])
+      await execaCommand(`git checkout -b ${targetBranch}`)
+      await execaCommand(`git merge origin/${rawBranch}`)
     }
   }
   catch (e: unknown) {
